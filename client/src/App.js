@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import Datetime from 'react-datetime';
 import './App.css';
 
 function App() {
+
+  const [response, setResponse] = useState('');
+
+  useEffect(() => {
+    fetch("http://localhost:9000/")
+      .then(res => res.text())
+      .then(res => setResponse(res));
+  }, []);
+
   return (
     <Container>
       <Row style={{marginTop: '50px'}}>
@@ -42,6 +51,7 @@ function App() {
       </Row>
       <Row style={{marginTop: '50px'}}>
         <h3>Result will be graphed here.</h3>
+        <p>{response}</p>
       </Row>
     </Container>
   );
